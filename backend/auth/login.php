@@ -18,7 +18,7 @@ if ($email === '' || $password === '') {
 }
 
 try {
-    $stmt = db()->prepare('SELECT id, first_name, last_name, email, password_hash, hire_date FROM employees WHERE email = :email LIMIT 1');
+    $stmt = db()->prepare('SELECT id, employee_id, role_id ,  email, password_hash FROM users WHERE email = :email LIMIT 1');
     $stmt->execute(['email' => $email]);
     $employee = $stmt->fetch();
 
@@ -49,10 +49,7 @@ try {
         'user' => [
             'employee' => [
                 'id' => (int)$employee['id'],
-                'first_name' => $employee['first_name'],
-                'last_name' => $employee['last_name'],
                 'email' => $employee['email'],
-                'hire_date' => $employee['hire_date'],
             ],
         ],
     ]);
