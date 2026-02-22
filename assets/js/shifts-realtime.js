@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // -------- 1. VERIFICAR TURNO ACTIVO AL CARGAR --------
     try {
-        const res = await fetch(`http://localhost:9000/shifts/active?employee_id=${employeeId}`, {
+        const res = await fetch("../backend/shifts/active.php", {
             headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
@@ -63,14 +63,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-            const res = await fetch("http://localhost:9000/shifts/start", {
+            const res = await fetch("../backend/shifts/start.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    employee_id: employeeId,
                     location_id: locationId
                     // El servidor debería asignar la hora de entrada actual
                 })
@@ -104,7 +103,7 @@ async function handleClockOut() {
 
     // 3. AHORA SÍ usamos fullClockOut en el fetch
     try {
-        const res = await fetch("http://localhost:9000/shifts/end", {
+        const res = await fetch("../backend/shifts/end.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
